@@ -10,8 +10,8 @@ import {
 } from "react-native";
 
 export default function App() {
-  const [task, setTask] = useState("");
-  const [tasks, setTasks] = useState([]);
+  const [task, setTask] = useState<string>("");
+  const [tasks, setTasks] = useState<Task[]>([]);
 
   const addTask = () => {
     if (task.trim()) {
@@ -20,7 +20,7 @@ export default function App() {
     }
   };
 
-  const deleteTask = (id) => {
+  const deleteTask = (id: string) => {
     setTasks(tasks.filter((task) => task.id !== id));
   };
 
