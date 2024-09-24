@@ -2,84 +2,125 @@ import { useState } from "react";
 import {
   Button,
   FlatList,
+  ListRenderItem,
+  Pressable,
   StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
   View,
 } from "react-native";
+import SetComponent from "./components/setComponent";
 
 export default function App() {
-  const [task, setTask] = useState<string>("");
-  const [tasks, setTasks] = useState<Task[]>([]);
+  const [tasks, setTasks] = useState<setType[]>([]);
 
   const addTask = () => {
-    if (task.trim()) {
-      setTasks([...tasks, { id: Date.now().toString(), text: task }]);
-      setTask("");
-    }
+    setTasks([
+      ...tasks,
+      {
+        id: Date.now().toString(),
+        weight: "0",
+        reps: "1",
+        isComplete: false,
+      },
+    ]);
   };
 
-  const deleteTask = (id: string) => {
-    setTasks(tasks.filter((task) => task.id !== id));
+  const renderSetComponent: ListRenderItem<setType> = ({ item }) => {
+    const setData = (newData: setType) => {
+      const newTasks = [...tasks];
+      const indexToChange = newTasks.findIndex((item) => item.id === item.id);
+      newTasks[indexToChange] = newData;
+      setTasks(newTasks);
+    };
+
+    return <SetComponent data={item} setData={setData} key={item.id} />;
   };
+
+  // const deleteTask = (id: string) => {
+  //   setTasks(tasks.filter((task) => task.id !== id));
+  // };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Rep-It</Text>
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.input}
-          placeholder="Add a new task"
-          value={task}
-          onChangeText={setTask}
+    <View style={styles.appContainer}>
+      <View style={styles.container}>
+        <Text style={styles.title}>Rep-It</Text>
+        <View style={styles.headerContainer}>
+          <Text style={styles.header}>kg</Text>
+          <Text style={styles.header}>reps</Text>
+          <Text style={styles.headerLast}></Text>
+        </View>
+        <FlatList
+          data={tasks}
+          renderItem={renderSetComponent}
+          keyExtractor={(item) => item.id}
+          style={styles.list}
         />
-        <Button title="Add" onPress={addTask} />
+        <Pressable onPress={addTask}>
+          <Text style={styles.button}>Add Set</Text>
+        </Pressable>
+        
       </View>
-      <FlatList
-        data={tasks}
-        renderItem={({ item }) => (
-          <TouchableOpacity onPress={() => deleteTask(item.id)}>
-            <Text style={styles.task}>{item.text}</Text>
-          </TouchableOpacity>
-        )}
-        keyExtractor={(item) => item.id}
-      />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  appContainer: {
     flex: 1,
-    backgroundColor: '#fff',
-    padding: 20,
+    flexDirection: "row",
+    justifyContent: "center",
+  },
+  container: {
+    maxWidth: 500,
+    flex: 1,
+    backgroundColor: "#fff",
+  },
+  headerContainer: {
+    height: 50,
+    flexDirection: "row",
+    justifyContent: "center",
+    padding: 5,
+    columnGap: 10,
+  },
+  header: {
+    
+    width: 200,
+    padding: 10,
+    textAlign: "center",
+    verticalAlign: "middle",
+    color: "#abacac",
+    fontWeight: "bold",
+  },
+  headerLast: {
+    flexGrow: 1/3,
+  },
+  list: {
+    flex: 1
   },
   title: {
     fontSize: 24,
-    fontWeight: 'bold',
-    textAlign: 'center',
+    fontWeight: "bold",
+    textAlign: "center",
     marginVertical: 20,
+    height: 50,
   },
   inputContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 20,
+    justifyContent: "center",
+    color: "#54a6e5",
   },
-  input: {
+  button: {
+    padding: 20,
+    color: "#54a6e5",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    fontWeight: "bold"
+  },
+  setList: {
     flex: 1,
-    borderColor: '#ccc',
-    borderWidth: 1,
-    padding: 10,
-    marginRight: 10,
-    borderRadius: 5,
-  },
-  task: {
-    padding: 15,
-    backgroundColor: '#f9f9f9',
-    borderBottomWidth: 1,
-    borderBottomColor: '#ddd',
+    flexDirection: "column",
+    rowGap: 10,
   },
 });
-

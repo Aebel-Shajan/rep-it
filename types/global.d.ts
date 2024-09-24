@@ -1,4 +1,6 @@
-interface Task{
+interface setType {
     id: string;
-    text: string;
-}
+    weight: string;
+    reps: string;
+    isComplete: Boolean;
+  }
