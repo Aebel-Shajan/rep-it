@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
-import Feather from '@expo/vector-icons/Feather';
+import Feather from "@expo/vector-icons/Feather";
 
 interface setComponentProps {
   data: setType;
@@ -22,17 +22,17 @@ export default function SetComponent({ data, setData }: setComponentProps) {
 
   const containerStyle = StyleSheet.compose(
     styles.container,
-    isComplete ? successStyle.container : null
+    isComplete ? successStyle.container : null,
   );
 
   const inputStyle = StyleSheet.compose(
     styles.input,
-    isComplete ? successStyle.input : null
+    isComplete ? successStyle.input : null,
   );
 
   const doneStyle = StyleSheet.compose(
     styles.done,
-    isComplete ? successStyle.done : null
+    isComplete ? successStyle.done : null,
   );
 
   return (
@@ -49,9 +49,13 @@ export default function SetComponent({ data, setData }: setComponentProps) {
         value={reps}
         selectTextOnFocus={true}
       />
-      <Pressable onPress={() => setIsComplete(!isComplete)} style={doneStyle} >
+      <Pressable onPress={() => setIsComplete(!isComplete)} style={doneStyle}>
         <Text>
-          <Feather name="check" size={24} color={isComplete? "white": "black"} />
+          <Feather
+            name="check"
+            size={24}
+            color={isComplete ? "white" : "black"}
+          />
         </Text>
       </Pressable>
     </View>
@@ -74,7 +78,7 @@ const styles = StyleSheet.create({
     verticalAlign: "middle",
     backgroundColor: "#e9ebe9",
     color: "#abacac",
-    borderRadius: 10
+    borderRadius: 10,
   },
   done: {
     padding: 5,
@@ -82,21 +86,20 @@ const styles = StyleSheet.create({
     color: "#abacac",
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: 10
+    borderRadius: 10,
   },
 });
 
 const successStyle = StyleSheet.create({
   container: {
     backgroundColor: "#e9f9ef",
-    color: "#000"
+    color: "#000",
   },
   input: {
     backgroundColor: "#e9f9ef",
-    color: "#000"
-
+    color: "#000",
   },
   done: {
-    backgroundColor: "#29ce6d"
-  }
+    backgroundColor: "#29ce6d",
+  },
 });

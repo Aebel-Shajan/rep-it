@@ -60,7 +60,6 @@ export default function App() {
         <Pressable onPress={addTask}>
           <Text style={styles.button}>Add Set</Text>
         </Pressable>
-        
       </View>
     </View>
   );
@@ -85,7 +84,6 @@ const styles = StyleSheet.create({
     columnGap: 10,
   },
   header: {
-    
     width: 200,
     padding: 10,
     textAlign: "center",
@@ -94,10 +92,10 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   headerLast: {
-    flexGrow: 1/3,
+    flexGrow: 1 / 3,
   },
   list: {
-    flex: 1
+    flex: 1,
   },
   title: {
     fontSize: 24,
@@ -116,7 +114,7 @@ const styles = StyleSheet.create({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
   setList: {
     flex: 1,
